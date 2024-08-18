@@ -1,4 +1,6 @@
+// src/App.js
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './App.css';
 
 function App() {
@@ -24,11 +26,10 @@ function App() {
 
   const handleShare = () => {
     if (selectedPost) {
-      // Generate a unique URL for the post (assuming this is the structure)
-      const postUrl = `https://yourdomain.com/posts/${selectedPost.id}`; // Adjust this URL to your actual URL structure
+      const postUrl = `https://yourdomain.com/posts/${selectedPost.id}`;
       const title = selectedPost.title;
       const description = selectedPost.post_body;
-
+  
       const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}&quote=${encodeURIComponent(title + ' - ' + description)}`;
       window.open(facebookUrl, '_blank');
     }
@@ -54,14 +55,14 @@ function App() {
         <ul>
           {posts.map(post => (
             <li key={post.id}>
-              <a href="#" onClick={() => handlePostClick(post)}>
+              <Link to={`/posts/${post.id}`}>
                 <img
                   src={`https://admin.desh365.top/public/storage/post-image/${post.image}`}
                   alt={post.title}
                   style={{ height: '50px', width: '50px', marginRight: '10px', objectFit: 'cover', borderRadius: '5px' }}
                 />
                 <span>{post.title}</span>
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
