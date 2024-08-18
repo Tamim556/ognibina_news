@@ -1,32 +1,77 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
+  const [posts, setPosts] = useState([]);
+  const [selectedPost, setSelectedPost] = useState(null);
+
+  useEffect(() => {
+    // Fetch data from the API
+    fetch('https://admin.desh365.top/api/all-post')
+      .then(response => response.json())
+      .then(data => {
+        if (data.status) {
+          const allPosts = data.data.flatMap(category => category.posts);
+          setPosts(allPosts);
+        }
+      })
+      .catch(error => console.error('Error fetching posts:', error));
+  }, []);
+
+  const handlePostClick = (post) => {
+    setSelectedPost(post);
+  };
+
   const handleShare = () => {
-    const url = window.location.href; // Current page URL
-    const title = document.querySelector('h1').innerText; // Get H1 text
-    const description = document.querySelector('p').innerText; // Get P text
-    const imageUrl = document.querySelector('img').src; // Get Image URL
+    if (selectedPost) {
+      const url = window.location.href; // Use your public URL in production
+      const title = selectedPost.title;
+      const description = selectedPost.post_body;
 
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(title + ' - ' + description)}&picture=${encodeURIComponent(imageUrl)}`;
-
-    window.open(facebookUrl, '_blank');
+      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(title + ' - ' + description)}`;
+      window.open(facebookUrl, '_blank');
+    }
   };
 
   return (
     <div className="App">
-      <h1>bangladesh is right now</h1>
+      <h1>Bangladesh is right now</h1>
 
-      <img
-        style={{ height: "300px", width: "300px" }}
-        src="https://images.unsplash.com/photo-1576158113928-4c240eaaf360?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        className=""
-        alt="Bangladesh right now"
-      />
+      {selectedPost ? (
+        <>
+          <h2>{selectedPost.title}</h2>
+          <img
+            style={{ height: "300px", width: "300px" }}
 
-      <p>dfvhdhbu dfdf bdfbd fd f dfdhfdbfhdbhbhgfdbhgdbhg</p>
+            // https://admin.desh365.top/public/storage/post-image/${post.image}
+            src={`https://admin.desh365.top/public/storage/post-image/${selectedPost.image}`}
+            alt={selectedPost.title}
+          />
+          <p dangerouslySetInnerHTML={{ __html: selectedPost.post_body }}></p>
+          <button onClick={handleShare}>Share on Facebook</button>
+          <button onClick={() => setSelectedPost(null)}>Back to Posts</button>
+        </>
+      ) : (
+        <ul>
+          {posts.map(post => (
+            <li key={post.id}>
+              <a href="#" onClick={() => handlePostClick(post)}>
+             
 
-      <button onClick={handleShare}>Share on Facebook</button>
+
+              <img
+          src={`https://admin.desh365.top/public/storage/post-image/${post.image}`}
+          alt={post.title}
+          style={{ height: '50px', width: '50px', marginRight: '10px', objectFit: 'cover', borderRadius: '5px' }}
+        />
+
+<span>{post.title}</span>
+
+</a>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
