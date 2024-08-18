@@ -40,8 +40,8 @@ function PostDetail() {
   if (error) return <div>Error loading post: {error.message}</div>;
 
   // Example dimensions, adjust these to match the actual size of your image
-  const imageWidth = 300;
-  const imageHeight = 300;
+  const imageWidth = 1200;  // Adjust according to your actual image dimensions
+  const imageHeight = 630;  // Adjust according to your actual image dimensions
 
   return (
     <div>
