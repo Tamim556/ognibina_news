@@ -39,12 +39,18 @@ function PostDetail() {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error loading post: {error.message}</div>;
 
+  // Example dimensions, adjust these to match the actual size of your image
+  const imageWidth = 300;
+  const imageHeight = 300;
+
   return (
     <div>
       <Helmet>
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.post_body.substring(0, 200)} />
         <meta property="og:image" content={`https://admin.desh365.top/public/storage/post-image/${post.image}`} />
+        <meta property="og:image:width" content={imageWidth} />
+        <meta property="og:image:height" content={imageHeight} />
         <meta property="og:url" content={`https://ognibina-news.vercel.app/post/${id}`} />
         <meta property="og:type" content="article" />
         <title>{post.title}</title>
