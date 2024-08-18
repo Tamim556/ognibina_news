@@ -19,7 +19,7 @@ function PostDetail() {
   const handleShare = () => {
     if (post) {
       // Assuming `https://yourdomain.com/posts/${id}` is the correct URL for the post
-      const postUrl = `https://yourdomain.com/posts/${id}`;
+      const postUrl = `https://ognibina-news.vercel.app/posts/${id}`;
       const title = post.title;
       const description = post.post_body;
 
