@@ -26,7 +26,7 @@ function App() {
 
   const handleShare = () => {
     if (selectedPost) {
-      const postUrl = `https://ognibina-news.vercel.app/posts/${selectedPost.id}`;
+      const postUrl = `https://ognibina-news.vercel.app/post/${selectedPost.id}`;
       const title = selectedPost.title;
       const description = selectedPost.post_body;
   
