@@ -24,11 +24,12 @@ function App() {
 
   const handleShare = () => {
     if (selectedPost) {
-      const url = window.location.href; // Use your public URL in production
+      // Generate a unique URL for the post (assuming this is the structure)
+      const postUrl = `https://yourdomain.com/posts/${selectedPost.id}`; // Adjust this URL to your actual URL structure
       const title = selectedPost.title;
       const description = selectedPost.post_body;
 
-      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(title + ' - ' + description)}`;
+      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}&quote=${encodeURIComponent(title + ' - ' + description)}`;
       window.open(facebookUrl, '_blank');
     }
   };
@@ -42,8 +43,6 @@ function App() {
           <h2>{selectedPost.title}</h2>
           <img
             style={{ height: "300px", width: "300px" }}
-
-            // https://admin.desh365.top/public/storage/post-image/${post.image}
             src={`https://admin.desh365.top/public/storage/post-image/${selectedPost.image}`}
             alt={selectedPost.title}
           />
@@ -56,18 +55,13 @@ function App() {
           {posts.map(post => (
             <li key={post.id}>
               <a href="#" onClick={() => handlePostClick(post)}>
-             
-
-
-              <img
-          src={`https://admin.desh365.top/public/storage/post-image/${post.image}`}
-          alt={post.title}
-          style={{ height: '50px', width: '50px', marginRight: '10px', objectFit: 'cover', borderRadius: '5px' }}
-        />
-
-<span>{post.title}</span>
-
-</a>
+                <img
+                  src={`https://admin.desh365.top/public/storage/post-image/${post.image}`}
+                  alt={post.title}
+                  style={{ height: '50px', width: '50px', marginRight: '10px', objectFit: 'cover', borderRadius: '5px' }}
+                />
+                <span>{post.title}</span>
+              </a>
             </li>
           ))}
         </ul>
