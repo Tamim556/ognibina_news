@@ -1,14 +1,14 @@
-// src/index.js or src/main.js
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-import AppRouter from './AppRouter'; // Ensure AppRouter does not include another Router
+import { HelmetProvider } from 'react-helmet-async'; // Import HelmetProvider
+import AppRouter from './AppRouter'; // Assuming this is where your routes are defined
 
 ReactDOM.render(
-  <React.StrictMode>
+  <HelmetProvider> {/* Wrap your app with HelmetProvider */}
     <Router>
       <AppRouter />
     </Router>
-  </React.StrictMode>,
+  </HelmetProvider>,
   document.getElementById('root')
 );

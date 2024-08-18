@@ -55,7 +55,7 @@ function App() {
         <ul>
           {posts.map(post => (
             <li key={post.id}>
-              <Link to={`/posts/${post.id}`}>
+              <Link to={`/post/${post.id}`}>
                 <img
                   src={`https://admin.desh365.top/public/storage/post-image/${post.image}`}
                   alt={post.title}
